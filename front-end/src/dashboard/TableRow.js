@@ -7,9 +7,7 @@ import { finishTable } from "../utils/api";
 export default function TableRow({ table, loadDashboard }) {
 	if(!table) return null;
 
-	/**
-	 * Called when the user wants to finish a table that is currently seated.
-	 */
+	//pops up window that confirms with the user if they want to finish a table
 	function handleFinish() {
 		if(window.confirm("Is this table ready to seat new guests? This cannot be undone.")) {
 			const abortController = new AbortController();

@@ -11,12 +11,12 @@ import TableRow from "./TableRow";
 function Dashboard({ date, reservations, reservationsError, tables, tablesError, loadDashboard }) {
 	const history = useHistory();
 
-	const reservationsJSX = () => {
+	const formatReservations = () => {
 		return reservations.map((reservation) => 
 			<ReservationRow key={reservation.reservation_id} reservation={reservation} loadDashboard={loadDashboard} />);
 	};
 
-	const tablesJSX = () => {
+	const mapTables = () => {
 		return tables.map((table) => 
 			<TableRow key={table.table_id} table={table} loadDashboard={loadDashboard} />);
 	};
@@ -78,7 +78,7 @@ function Dashboard({ date, reservations, reservationsError, tables, tablesError,
 					</thead>
 					
 					<tbody>
-						{reservationsJSX()}
+						{formatReservations()}
 					</tbody>
 				</table>
 		
@@ -102,7 +102,7 @@ function Dashboard({ date, reservations, reservationsError, tables, tablesError,
 					</thead>
 					
 					<tbody>
-						{tablesJSX()}
+						{mapTables()}
 					</tbody>
 				</table>
 		</main>

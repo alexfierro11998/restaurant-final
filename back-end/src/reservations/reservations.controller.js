@@ -97,10 +97,12 @@ async function validateReservationId(req, res, next) {
     next();
 }
 
-/**
- * Validates the body object to make sure all required information is correct for updating
- * a resevation's status.
- */
+//responds with a reservation stored in local memory
+async function read(req, res) {
+	res.status(200).json({ data: res.locals.reservation });
+}
+
+//verifies body object status key is present and makes sure the status is valid
 async function validateUpdateBody(req, res, next) {
 	if(!req.body.data.status) {
 		return next({ status: 400, message: "body must include a status field" });
@@ -118,30 +120,21 @@ async function validateUpdateBody(req, res, next) {
 	next();
 }
 
-/**
- * Update a reservation's status.
- */
+//updates a reservation by its status
 async function update(req, res) {
 	await service.update(res.locals.reservation.reservation_id, req.body.data.status);
 
 	res.status(200).json({ data: { status: req.body.data.status } });
 }
 
-/**
- * Edit the data of a reservation.
- */
+//edits data of a reservation
 async function edit(req, res) {
 	const response = await service.edit(res.locals.reservation.reservation_id, req.body.data);
 
 	res.status(200).json({ data: response[0] });
 }
 
-/**
- * Respond with a particular reservation.
- */
-async function read(req, res) {
-	res.status(200).json({ data: res.locals.reservation });
-}
+
 
 module.exports = {
 	list: asyncErrorBoundary(list),
